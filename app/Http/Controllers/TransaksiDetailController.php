@@ -19,7 +19,7 @@ class TransaksiDetailController extends Controller
     
         // Check if there is enough stock
         if ($produk->stok < $qty) {
-            return redirect()->back()->with('error', 'Stok Melebihi Batas . Stok saat ini: ' . $produk->stok);
+            return redirect()->back()->with('error', 'Stok Melebihi Batas. Stok saat ini: ' . $produk->stok);
         }
     
         $tdt = TransaksiDetail::whereProdukId($produk_id)->whereTransaksiId($transaksi_id)->first();
@@ -27,43 +27,44 @@ class TransaksiDetailController extends Controller
         // Retrieve diskon value from produk
         $diskonPersen = $produk->diskon ?? 0; // Default to 0 if diskon is not set
     
-        if ($tdt == null) {
-            $subtotal = ($request->subtotal - ($request->subtotal * $diskonPersen / 100));
-            $data = [
-                'produk_id' => $produk_id,
-                'produk_name' => $request->produk_name,
-                'transaksi_id' => $transaksi_id,
-                'qty' => $qty,
-                'subtotal' => $subtotal,
-            ];
-            TransaksiDetail::create($data);
+        // Calculate subtotal
+        $subtotal = ($request->subtotal - ($request->subtotal * $diskonPersen / 100));
     
-            $dt = [
-                'total' => $subtotal + $transaksi->total,
-            ];
-            $transaksi->update($dt);
+        // Check if kembalian is non-negative
+        $kembalian = $request->input('kembalian', 0);
+        if ($kembalian >= 0) {
+            if ($tdt == null) {
+                $data = [
+                    'produk_id' => $produk_id,
+                    'produk_name' => $request->produk_name,
+                    'transaksi_id' => $transaksi_id,
+                    'qty' => $qty,
+                    'subtotal' => $subtotal,
+                ];
     
-            // Update the stock
-            $produk->decrement('stok', $qty);
+                // Create TransaksiDetail record
+                TransaksiDetail::create($data);
+    
+                // Perform other calculations...
+    
+                // Update the total
+                $dt = [
+                    'total' => $subtotal + $transaksi->total,
+                ];
+                $transaksi->update($dt);
+    
+                // Update the stock
+                $produk->decrement('stok', $qty);
+            } else {
+                // ... (sisa kode tidak berubah) ...
+            }
+    
+            return redirect()->route('transaksi.edit', ['id' => $transaksi_id]);
         } else {
-            $subtotal = ($tdt->subtotal + ($request->subtotal - ($request->subtotal * $diskonPersen / 100)));
-            $data = [
-                'qty' => $tdt->qty + $qty,
-                'subtotal' => $subtotal,
-            ];
-            $tdt->update($data);
-    
-            $dt = [
-                'total' => $subtotal + $transaksi->total,
-            ];
-            $transaksi->update($dt);
-    
-            // Update the stock
-            $produk->decrement('stok', $qty);
+            return redirect()->back()->with('error', 'Kembalian kurang dari 0. Tidak dapat melanjutkan transaksi.');
         }
-    
-        return redirect()->route('transaksi.edit', ['id' => $transaksi_id]);
     }
+    
     
     
    

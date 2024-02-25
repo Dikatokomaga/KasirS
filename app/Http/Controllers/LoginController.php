@@ -107,6 +107,8 @@ class LoginController extends Controller
 
     }
 
+    // Forgot Password 
+
     public function forgot_password()
     {
         return view('auth.forgot-password');
@@ -155,6 +157,8 @@ class LoginController extends Controller
         return redirect()->route('login')->with('failed', 'Token tidak valid');
     }
 
+    // Tambahkan logging atau dd($token) di sini untuk memeriksa token
+
     return view('auth.validasi-token', compact('token'));
 }
 
@@ -164,9 +168,6 @@ public function validasi_forgot_password_act(Request $request)
         'password.required' => 'Password tidak boleh kosong',
         'password.min' => 'Password minimal 6 karakter',
     ];
-
-    // Tambahkan pesan debug
-    // dd($request->all());
 
     $request->validate([
         'password' => 'required|min:6',
@@ -187,12 +188,12 @@ public function validasi_forgot_password_act(Request $request)
     $user->update([
         'password' => Hash::make($request->password),
     ]);
-    dd($request->all());
-
+// dd($request->all());
     $token->delete();
 
     return redirect()->route('login')->with('success', 'Password berhasil direset');
 }
+
 
 
 

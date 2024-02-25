@@ -32,10 +32,13 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:kategoris'
+            'name' => 'required|unique:kategoris',
+            
         ]);
         
         $data['name'] = $request->name;
+       
+        // dd($data);
         
     
         Kategori::create($data);

@@ -29,7 +29,7 @@ class RiwayatController extends Controller
 {
     // Ambil semua data transaksi detail dari database
     $allTransaksiDetails = TransaksiDetail::all();
-    
+
     // Dapatkan opsi yang dipilih dari formulir
     $startDate = $request->input('start_date');
     $endDate = $request->input('end_date');
@@ -39,13 +39,21 @@ class RiwayatController extends Controller
     $endDateTime = Carbon::parse($endDate)->endOfDay();
 
     // Query TransaksiDetail based on the date range
-    $transaksiDetails = TransaksiDetail::whereBetween('created_at', [$startDateTime, $endDateTime])->get();
+    $transaksiDetails = TransaksiDetail::whereBetween('created_at', [$startDateTime, $endDateTime]);
+
+    // Dapatkan opsi terpilih dari formulir
+    $selectedOptions = $request->input('selected_options');
 
     // Gunakan opsi yang dipilih untuk mengambil data tertentu dari database
     if (!empty($selectedOptions)) {
-        $transaksiDetails = TransaksiDetail::whereIn('kolom_tersedia', $selectedOptions)->get();
-    } else {
-        // Jika tidak ada opsi yang dipilih, gunakan semua data
+        $transaksiDetails->whereIn('kolom_tersedia', $selectedOptions);
+    }
+
+    // Ambil data TransaksiDetail sesuai filter
+    $transaksiDetails = $transaksiDetails->get();
+
+    // Jika tidak ada opsi yang dipilih, gunakan semua data
+    if ($transaksiDetails->isEmpty()) {
         $transaksiDetails = $allTransaksiDetails;
     }
 
@@ -68,6 +76,8 @@ class RiwayatController extends Controller
     // Unduh PDF
     return $dompdf->stream('laporan-pengeluaran.pdf');
 }
+
+    
 
     
     

@@ -1,7 +1,7 @@
 <nav class="sidebar">
     <div class="sidebar-header">
       <a href="{{ route('dashboard') }}" class="sidebar-brand">
-        Bum<span>Sir</span>
+        Album<span>Sir</span>
       </a>
       <div class="sidebar-toggler not-active">
         <span></span>
@@ -22,6 +22,18 @@
         </li>
         
         @endif
+
+        @if(auth()->user()->role!="admin")
+        <li class="nav-item nav-category">Main</li>
+      
+        <li class="nav-item">
+            <a href="{{ route('dashboardp') }}" class="nav-link">
+                <i class="link-icon" data-feather="box"></i>
+                <span class="link-title">Dashboard</span>
+            </a>
+        </li>
+        
+        @endif
         @if(auth()->user()->role!="karyawan")
         <li class="nav-item nav-category">Users</li>
       
@@ -33,11 +45,11 @@
         </li>
         
         @endif
-        @if(auth()->user()->role != "pemilik" && auth()->user()->role != "karyawan")
+        @if(auth()->user()->role!="karyawan")
         <li class="nav-item nav-category">Item</li>
         <li class="nav-item">
             <a href="{{ route('kategori') }}" class="nav-link">
-                <i class="link-icon" data-feather="film"></i>
+                <i class="link-icon" data-feather="server"></i>
                 <span class="link-title">Kategori</span>
             </a>
         </li>
@@ -51,13 +63,11 @@
           </li>
         @endif
         
-<<<<<<< HEAD
-        @if(auth()->user()->role != "admin" && auth()->user()->role != "pemilik")
-=======
-        @if(auth()->user()->role!="admin")
->>>>>>> c7351167fa8d9178edbab39eb7451d0bf438d78f
+
+     
+
         <li class="nav-item nav-category">Kasir</li>
-       
+        @if(auth()->user()->role!="admin")
         <li class="nav-item">
             <a href="{{ route('transaksi') }}" class="nav-link">
                 <i class="link-icon" data-feather="credit-card"></i>
@@ -65,27 +75,17 @@
             </a>
         </li>
         @endif
-<<<<<<< HEAD
-        @if(auth()->user()->role != "admin" && auth()->user()->role != "karyawan")
+
+        @if(auth()->user()->role!="karyawan")
         <li class="nav-item">
             <a href="{{ route('riwayat') }}" class="nav-link">
-                <i class="link-icon" data-feather="database"></i>
-                <span class="link-title">Database</span>
+                <i class="link-icon" data-feather="activity"></i>
+                <span class="link-title">Riwayat Transaksi</span>
             </a>
         </li>
         @endif
         
-=======
-        
-        @if(auth()->user()->role!="pengguna")
-        <li class="nav-item">
-          <a href="{{ route('riwayat') }}" class="nav-link">
-              <i class="link-icon" data-feather="database"></i>
-              <span class="link-title">Database</span>
-          </a>
-      </li>
-        @endif
->>>>>>> c7351167fa8d9178edbab39eb7451d0bf438d78f
+
         
       
       </ul>

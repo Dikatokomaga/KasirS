@@ -14,14 +14,45 @@ use RealRashid\SweetAlert\Facades\Alert;
 class HomeController extends Controller
 {
   
-    public function dashboard(){
+    
+
+    public function dashboard()
+    {
         $totalUsers = User::count();
         $totalProduk = Produk::count();
         $pengguna = Auth::user()->name;
         $totalPenjualan = Transaksi::sum('total');
-        return view('layout.dashboard', compact('totalUsers','totalProduk','totalPenjualan','pengguna'));
         
+
+    //     $penjualanTerbanyak = DB::table('transaksi_details')
+    // ->select('produk_id', DB::raw('SUM(qty) as total_qty'))
+    // ->groupBy('produk_id')
+    // ->orderByDesc('total_qty')
+    // ->first();
+
+// $produkTerlaris = Product::find($penjualanTerbanyak->produk_id);
+
+
+        // Ambil beberapa produk terbaru (contoh, 5 produk terbaru)
+        $produkTerbaru = Produk::latest()->take(2)->get();
+    // dd($produkTerbaru);
+        return view('layout.dashboard', compact('totalUsers', 'totalProduk', 'totalPenjualan', 'pengguna', 'produkTerbaru'));
     }
+
+    public function dashboardp()
+    {
+        $totalUsers = User::count();
+        $totalProduk = Produk::count();
+        $pengguna = Auth::user()->name;
+        $totalPenjualan = Transaksi::sum('total');
+        
+        // Ambil beberapa produk terbaru (contoh, 5 produk terbaru)
+        $produkTerbaru = Produk::latest()->take(3)->get();
+    // dd($produkTerbaru);
+        return view('layout.dashboard', compact('totalUsers', 'totalProduk', 'totalPenjualan', 'pengguna', 'produkTerbaru'));
+    }
+
+
     public function index(){
         $data = User::orderByRaw("FIELD(role, 'pemilik') DESC")->get();
         return view('index',compact('data'));

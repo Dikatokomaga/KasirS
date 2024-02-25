@@ -6,7 +6,7 @@
         <div id="alertMessage" class="alert alert-info alert-dismissible fade show" role="alert">
             Selamat datang 
             {{ $pengguna }}
-            di Kasir UKK
+            di Kasir Album
             !!!
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
         </div>

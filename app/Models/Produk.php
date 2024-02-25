@@ -9,6 +9,7 @@ class Produk extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'kategori_id', 'harga', 'stok', 'gambar','diskon','penyanyi'];
+    
     public function transaksiDetails()
     {
         return $this->hasMany('App\Models\TransaksiDetail', 'produk_id');

@@ -25,6 +25,7 @@
     </div>
 
     <div class="row">
+    @if(auth()->user()->role != "karyawan")
         <div class="col-12 col-xl-12 stretch-card">
             <div class="row flex-grow-1">
                 <div class="col-md-4 grid-margin stretch-card">
@@ -128,113 +129,76 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- row -->
-<<<<<<< HEAD
-
-    <div class="row">
-        <div class="col-lg-7 col-xl-8 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-baseline mb-2">
-                        <h6 class="card-title mb-0">Monthly sales</h6>
-                        <div class="dropdown mb-2">
-                            <a
-                                type="button"
-                                id="dropdownMenuButton4"
-                                data-bs-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                                <a class="dropdown-item d-flex align-items-center" href="javascript:;">
-                                    <i data-feather="eye" class="icon-sm me-2"></i>
-                                    <span class="">View</span></a>
-                                <a class="dropdown-item d-flex align-items-center" href="javascript:;">
-                                    <i data-feather="edit-2" class="icon-sm me-2"></i>
-                                    <span class="">Edit</span></a>
-                                <a class="dropdown-item d-flex align-items-center" href="javascript:;">
-                                    <i data-feather="trash" class="icon-sm me-2"></i>
-                                    <span class="">Delete</span></a>
-                                <a class="dropdown-item d-flex align-items-center" href="javascript:;">
-                                    <i data-feather="printer" class="icon-sm me-2"></i>
-                                    <span class="">Print</span></a>
-                                <a class="dropdown-item d-flex align-items-center" href="javascript:;">
-                                    <i data-feather="download" class="icon-sm me-2"></i>
-                                    <span class="">Download</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-muted">Sales are activities related to selling or the number of
-                        goods or services sold in a given time period.</p>
-                    <div id="monthlySalesChart"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-5 col-xl-4 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-baseline">
-                        <h6 class="card-title mb-0">Cloud storage</h6>
-                        <div class="dropdown mb-2">
-                            <a
-                                type="button"
-                                id="dropdownMenuButton5"
-                                data-bs-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton5">
-                                <a class="dropdown-item d-flex align-items-center" href="javascript:;">
-                                    <i data-feather="eye" class="icon-sm me-2"></i>
-                                    <span class="">View</span></a>
-                                <a class="dropdown-item d-flex align-items-center" href="javascript:;">
-                                    <i data-feather="edit-2" class="icon-sm me-2"></i>
-                                    <span class="">Edit</span></a>
-                                <a class="dropdown-item d-flex align-items-center" href="javascript:;">
-                                    <i data-feather="trash" class="icon-sm me-2"></i>
-                                    <span class="">Delete</span></a>
-                                <a class="dropdown-item d-flex align-items-center" href="javascript:;">
-                                    <i data-feather="printer" class="icon-sm me-2"></i>
-                                    <span class="">Print</span></a>
-                                <a class="dropdown-item d-flex align-items-center" href="javascript:;">
-                                    <i data-feather="download" class="icon-sm me-2"></i>
-                                    <span class="">Download</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="storageChart"></div>
-                    <div class="row mb-3">
-                        <div class="col-6 d-flex justify-content-end">
-                            <div>
-                                <label
-                                    class="d-flex align-items-center justify-content-end tx-10 text-uppercase fw-bolder">Total storage
-                                    <span class="p-1 ms-1 rounded-circle bg-secondary"></span></label>
-                                <h5 class="fw-bolder mb-0 text-end">8TB</h5>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div>
-                                <label class="d-flex align-items-center tx-10 text-uppercase fw-bolder">
-                                    <span class="p-1 me-1 rounded-circle bg-primary"></span>
-                                    Used storage</label>
-                                <h5 class="fw-bolder mb-0">~5TB</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-grid">
-                        <button class="btn btn-primary">Upgrade storage</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endif
     </div>
     <!-- row -->
 
 
-=======
->>>>>>> c7351167fa8d9178edbab39eb7451d0bf438d78f
+    <style>
+    .mb-12 {
+        margin-bottom: 12px;
+    }
+
+    .product-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .product-image {
+        width: 50%; /* Lebar gambar menjadi 50% dari lebar parent */
+        height: auto; /* Agar gambar menyesuaikan tinggi */
+        border-radius: 8px; /* Contoh: Tambahkan sudut yang melengkung pada gambar */
+    }
+
+    .product-details {
+        margin-top: 8px; /* Jarak antara gambar dan detail produk */
+    }
+
+    .product-name {
+        font-size: 18px; /* Ukuran font nama produk */
+        margin-bottom: 4px; /* Jarak antara nama produk dan penyanyi */
+    }
+
+    .product-singer {
+        font-size: 14px; /* Ukuran font penyanyi */
+        margin-bottom: 4px; /* Jarak antara penyanyi dan harga */
+    }
+
+    .product-price {
+        font-size: 16px; /* Ukuran font harga */
+        color: #28a745; /* Warna teks harga (misalnya hijau) */
+        font-weight: bold; /* Teks tebal pada harga */
+    }
+</style>
+
+<div class="col-md-12 grid-margin stretch-card">
+@if(auth()->user()->role != "admin")
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-0">Produk Terbaru</h6>
+                <!-- Dropdown menu untuk opsi lebih lanjut -->
+            </div>
+
+            <!-- Loop untuk menampilkan produk terbaru -->
+            @foreach($produkTerbaru as $product)
+            <div class="mb-12 product-container">
+                <img src="{{ asset($product->gambar) }}" alt="{{ $product->gambar }}" class="img-fluid product-image">
+                <div class="product-details">
+                    <h6 class="mt-2 product-name">{{ $product->name }}</h6>
+                    <p class="text-muted product-singer">{{ $product->penyanyi }}</p>
+                    <span class="text-success product-price">Rp. {{ format_rupiah($product->harga) }}</span>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+@endif
+
+
+
 </div>
 @endsection

@@ -96,29 +96,35 @@ theme for your project. -->
                                                 @csrf
                                                 <input type="hidden" name="token" value="{{$token}}">
                                                 <div class="mb-3">
-                                                    <label for="password" class="form-label">Password Baru</label>
-                                                    <input
-                                                        type="password"
-                                                        name="password"
-                                                        class="form-control @error('password') is-invalid @enderror"
-                                                        id="password"
-                                                        placeholder="password">
+    <label for="password" class="form-label">Password Baru</label>
+    <input
+        type="password"
+        name="password"
+        class="form-control @error('password') is-invalid @enderror"
+        id="password"
+        placeholder="password">
 
-                                                    @error('password')
-                                                    <span class="text-danger">{{$message}}</span>
-                                                    @enderror
-                                                </div>
+    @error('password')
+        <span class="text-danger">{{ $message }}</span>
+    @enderror
+</div>
 
+
+@if(session('errorMessage'))
+    <div id="alertMessage" class="alert alert-danger" role="alert">
+        <i data-feather="alert-circle"></i>
+        {{ session('errorMessage') }}
+    </div>
+@endif
                                             
 
                                                 <div>
 
-                                                    <button
-                                                        type="submit"
-                                                        class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0">
-                                                        Submit
-                                                     
-                                                    </button>
+                                                <div class="mb-3">
+    <button type="submit" class="btn btn-primary">
+        Reset Passwprd
+    </button>
+</div>
                                                     
                                                 </div>
                                                 @if(session('success'))

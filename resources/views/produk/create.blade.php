@@ -69,7 +69,7 @@
 
                 <div class="mb-3">
                     <label for="exampleInputUsername1" class="form-label">Stok</label>
-                    <input type="number" name="stok" class="form-control @error('stok') is-invalid @enderror" id="exampleInputUsername1" autocomplete="off" placeholder="Jumlah Stok">
+                    <input type="number" name="stok" class="form-control @error('stok') is-invalid @enderror" id="exampleInputUsername1" autocomplete="off" placeholder="Jumlah Stok" min="0">
                 
                 @error('stok')
               <span class="text-danger">{{$message}}</span>    
